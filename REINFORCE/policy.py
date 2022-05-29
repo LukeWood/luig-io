@@ -2,8 +2,9 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 import tensorflow_probability as tfp
+from general import get_logger
 
-class BasePolicy:
+class BasePolicy(keras.Model):
     def action_distribution(self, observations):
         """
         Args:
@@ -33,13 +34,12 @@ class BasePolicy:
         actions to a numpy array, via numpy(). Put the result in a variable
         called sampled_actions (which will be returned).
         """
-
         distribution = self.action_distribution(observations)
-        sampled_actions = tfp.Sample(distribution, shape=()).numpy()
+        sampled_actions = distribution.sample().numpy()
         return sampled_actions
 
 
-class CategoricalPolicy(Bkeras.Model):
+class CategoricalPolicy(BasePolicy):
     def __init__(self, network):
         super().__init__(self)
         self.network = network
@@ -59,7 +59,7 @@ class CategoricalPolicy(Bkeras.Model):
         return distribution
 
 
-class GaussianPolicy(keras.Model):
+class GaussianPolicy(BasePolicy):
     def __init__(self, network, action_dim):
         """
         After the basic initialization, you should create a nn.Parameter of
@@ -101,5 +101,5 @@ class GaussianPolicy(keras.Model):
         """
         locs = self.network(observations)
         stddevs = self.stddev()
-        distribution = tfp.distributions.MultivariateNormal(loc=locs, scale_tril=tf.linalg.diag(stddevs))
+        distribution = tfp.distributions.MultivariateNormalTriL(loc=locs, scale_tril=tf.linalg.diag(stddevs))
         return distribution

@@ -1,12 +1,12 @@
 import numpy as np
-import torch
 import gym
 import os
-from general import get_logger, Progbar, export_plot
 from baseline_network import BaselineNetwork
-from network_utils import build_mlp, device, np2torch
+from network_utils import build_mlp
 from policy import CategoricalPolicy, GaussianPolicy
-
+from general import get_logger, export_plot
+from tensorflow import keras
+import tensorflow as tf
 
 class PolicyGradient(object):
     """
@@ -73,14 +73,15 @@ class PolicyGradient(object):
         #######################################################
         #########   YOUR CODE HERE - 8-12 lines.   ############
         self.network = build_mlp(
-            self.observation_dim, self.action_dim, self.config.n_layers, self.config.layer_size
+            self.action_dim, self.config.n_layers, self.config.layer_size,
+            name="policy"
         )
         if self.discrete:
             self.policy = CategoricalPolicy(self.network)
         else:
             self.policy = GaussianPolicy(self.network, self.action_dim)
 
-        self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.config.learning_rate)
+        self.optimizer = keras.optimizers.Adam(learning_rate=self.config.learning_rate)
 
     def init_averages(self):
         """
@@ -270,20 +271,12 @@ class PolicyGradient(object):
         PyTorch optimizers will try to minimize the loss you compute, but you
         want to maximize the policy's performance.
         """
-        observations = np2torch(observations)
-        actions = np2torch(actions)
-        advantages = np2torch(advantages)
-        #######################################################
-        #########   YOUR CODE HERE - 5-7 lines.    ############
-        self.optimizer.zero_grad()
-        log_probs = self.policy.action_distribution(observations).log_prob(actions)
-        loss = log_probs * advantages
-        loss = -torch.mean(loss)
-        loss.backward()
-        self.optimizer.step()
-        # log_prob = .log_prob(actions)
-        #######################################################
-        #########          END YOUR CODE.          ############
+        with tf.GradientTape() as tape:
+            log_probs = self.policy.action_distribution(observations).log_prob(actions)
+            loss = log_probs * advantages
+            loss = -tf.math.reduce_mean(loss)
+        grads = tape.gradient(loss, self.policy.trainable_weights)
+        self.optimizer.apply_gradients(zip(grads, self.policy.trainable_weights))
 
     def train(self):
         """

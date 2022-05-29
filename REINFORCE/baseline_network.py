@@ -1,8 +1,9 @@
 import numpy as np
 from tensorflow import keras
-from network_utils import build_mlp, device, np2torch
+import tensorflow as tf
+from network_utils import build_mlp
 
-class BaselineNetwork(nn.Module):
+class BaselineNetwork(keras.Model):
     """
     Class for implementing Baseline network
     """
@@ -19,20 +20,14 @@ class BaselineNetwork(nn.Module):
         self.env = env
         self.baseline = None
         self.lr = self.config.learning_rate
-        #######################################################
-        #########   YOUR CODE HERE - 2-8 lines.   #############
         self.observation_dim = self.env.observation_space.shape[0]
         self.network = build_mlp(
-            self.observation_dim, 1, config.n_layers, config.layer_size
+            1, config.n_layers, config.layer_size, name="baseline"
         )
-        self.optimizer = torch.optim.Adam(
-            self.network.parameters(), lr=config.learning_rate
-        )
-        self.loss = nn.MSELoss()
-        #######################################################
-        #########          END YOUR CODE.          ############
+        self.optimizer = keras.optimizers.Adam(learning_rate=config.learning_rate)
+        self.loss = keras.losses.MeanSquaredError()
 
-    def forward(self, observations):
+    def call(self, observations):
         """
         Args:
             observations: torch.Tensor of shape [batch size, dim(observation space)]
@@ -49,8 +44,8 @@ class BaselineNetwork(nn.Module):
         When implementing other methods, you should use this instead of
         directly referencing the network (so that the shape is correct).
         """
-        output = torch.squeeze(self.network(observations), dim=-1)
-        assert output.ndim == 1
+        output = tf.squeeze(self.network(observations), axis=-1)
+        assert len(output.shape) == 1
         return output
 
     def calculate_advantage(self, returns, observations):
@@ -71,8 +66,7 @@ class BaselineNetwork(nn.Module):
         converts numpy arrays to torch tensors. You will have to convert the
         network output back to numpy, which can be done via the numpy() method.
         """
-        observations = np2torch(observations)
-        predictions = self.forward(observations).detach().numpy()
+        predictions = self(observations).numpy()
         advantages = returns - predictions
         return advantages
 
@@ -90,13 +84,9 @@ class BaselineNetwork(nn.Module):
         If you want to use mini-batch SGD, we have provided a helper function
         called batch_iterator (implemented in general.py).
         """
-        returns = np2torch(returns)
-        observations = np2torch(observations)
-        # TODO batch iterator
-        # for batch in batch_iterator(observations)...
         for _ in range(3):
-            self.optimizer.zero_grad()
-            predictions = self.forward(observations)
-            loss = self.loss(predictions, returns)
-            loss.backward()
-            self.optimizer.step()
+            with tf.GradientTape() as tape:
+                predictions = self(observations)
+                loss = self.loss(predictions, returns)
+            grads = tape.gradient(loss, self.trainable_weights)
+            self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
