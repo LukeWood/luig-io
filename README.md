@@ -1,4 +1,4 @@
-![luig-io](title.png)
+![luig-io](media/title.png)
 
 luig-io is a collection of deep reinforcement learning algorithms 
 implemented using the Keras library.  The algorithms are geared at
