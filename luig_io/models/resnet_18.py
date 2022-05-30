@@ -1,26 +1,8 @@
-from tensorflow import keras
+from keras.callbacks import EarlyStopping
 from keras.layers import Dense, Conv2D,  MaxPool2D, Flatten, GlobalAveragePooling2D,  BatchNormalization, Layer, Add
 from keras.models import Sequential
 from keras.models import Model
 import tensorflow as tf
-
-def build_mlp(output_size,  config, name=None):
-    """
-    Args:
-        output_size: int, the dimension of the output
-        n_layers: int, the number of hidden layers of the network
-        size: int, the size of each hidden layer
-    Returns:
-        An instance of (a subclass of) nn.Module representing the network.
-    """
-    layers = []
-    if config.use_resnet18:
-        layers.append(ResNet18())
-        layers.append(keras.layers.Flatten())
-    else:
-        layers = [keras.layers.Dense(config.size, activation='relu') for _ in range(config.layers)]
-    layers.append(keras.layers.Dense(output_size, activation=None))
-    return keras.Sequential(layers, name=name)
 
 class ResnetBlock(Model):
     """

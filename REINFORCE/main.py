@@ -2,12 +2,10 @@
 
 import argparse
 import numpy as np
-import torch
 import gym
 from policy_gradient import PolicyGradient
 from config import get_config
 import random
-import pdb
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
