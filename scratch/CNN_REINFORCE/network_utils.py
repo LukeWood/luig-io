@@ -11,14 +11,10 @@ def build_mlp(output_size,  config, name=None):
         n_layers: int, the number of hidden layers of the network
         size: int, the size of each hidden layer
     Returns:
-        An instance of (a subclass of) nn.Module representing the network.
+        A keras.Model representing the network.
     """
     layers = []
-    if config.use_resnet18:
-        layers.append(ResNet18())
-        layers.append(keras.layers.Flatten())
-    else:
-        layers = [keras.layers.Dense(config.size, activation='relu') for _ in range(config.layers)]
+    layers = [keras.layers.Dense(config.layer_size, activation='relu') for _ in range(config.n_layers)]
     layers.append(keras.layers.Dense(output_size, activation=None))
     return keras.Sequential(layers, name=name)
 

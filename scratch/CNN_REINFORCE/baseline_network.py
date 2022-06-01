@@ -22,7 +22,7 @@ class BaselineNetwork(keras.Model):
         self.lr = self.config.learning_rate
         self.observation_dim = self.env.observation_space.shape[0]
         self.network = build_mlp(
-            1, config.n_layers, config.layer_size, name="baseline"
+            1, config, name="baseline"
         )
         self.optimizer = keras.optimizers.Adam(learning_rate=config.learning_rate)
         self.loss = keras.losses.MeanSquaredError()

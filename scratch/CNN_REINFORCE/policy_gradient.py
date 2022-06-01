@@ -34,9 +34,9 @@ class PolicyGradient(object):
         self.config = config
         self.seed = seed
 
-        self.logger = logger
         if logger is None:
-            self.logger = get_logger(config.log_path)
+            logger = get_logger(config.log_path)
+        self.logger = logger
         self.env = env
         self.env.seed(self.seed)
 
@@ -73,7 +73,7 @@ class PolicyGradient(object):
         #######################################################
         #########   YOUR CODE HERE - 8-12 lines.   ############
         self.network = build_mlp(
-            self.action_dim, self.config.n_layers, self.config.layer_size,
+            self.action_dim, self.config,
             name="policy"
         )
         if self.discrete:
@@ -315,7 +315,6 @@ class PolicyGradient(object):
             # logging
             if t % self.config.summary_freq == 0:
                 self.update_averages(total_rewards, all_total_rewards)
-                self.record_summary(t)
 
             # compute reward statistics for this batch and log
             avg_reward = np.mean(total_rewards)

@@ -20,7 +20,6 @@ parser.set_defaults(use_baseline=True)
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    torch.random.manual_seed(args.seed)
     np.random.seed(args.seed)
     random.seed(args.seed)
 
