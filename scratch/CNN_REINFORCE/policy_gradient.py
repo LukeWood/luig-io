@@ -2,11 +2,12 @@ import numpy as np
 import gym
 import os
 from baseline_network import BaselineNetwork
-from network_utils import build_mlp
+from network_utils import build_network
 from policy import CategoricalPolicy, GaussianPolicy
 from general import get_logger, export_plot
 from tensorflow import keras
 import tensorflow as tf
+from helpers import get_env
 
 class PolicyGradient(object):
     """
@@ -55,24 +56,7 @@ class PolicyGradient(object):
             self.baseline_network = BaselineNetwork(env, config)
 
     def init_policy(self):
-        """
-        Please do the following:
-        1. Create a network using build_mlp. It should map vectors of size
-           self.observation_dim to vectors of size self.action_dim, and use
-           the number of layers and layer size from self.config
-        2. If self.discrete = True (meaning that the actions are discrete, i.e.
-           from the set {0, 1, ..., N-1} where N is the number of actions),
-           instantiate a CategoricalPolicy.
-           If self.discrete = False (meaning that the actions are continuous,
-           i.e. elements of R^d where d is the dimension), instantiate a
-           GaussianPolicy. Either way, assign the policy to self.policy
-        3. Create an optimizer for the policy, with learning rate self.lr
-           Note that the policy is an instance of (a subclass of) nn.Module, so
-           you can call the parameters() method to get its parameters.
-        """
-        #######################################################
-        #########   YOUR CODE HERE - 8-12 lines.   ############
-        self.network = build_mlp(
+        self.network = build_network(
             self.action_dim, self.config,
             name="policy"
         )
@@ -80,7 +64,6 @@ class PolicyGradient(object):
             self.policy = CategoricalPolicy(self.network)
         else:
             self.policy = GaussianPolicy(self.network, self.action_dim)
-
         self.optimizer = keras.optimizers.Adam(learning_rate=self.config.learning_rate)
 
     def init_averages(self):
@@ -237,13 +220,9 @@ class PolicyGradient(object):
         Returns:
             advantages: np.array of shape [batch size]
         """
-        if self.config.use_baseline:
-            # override the behavior of advantage by subtracting baseline
-            advantages = self.baseline_network.calculate_advantage(
-                returns, observations
-            )
-        else:
-            advantages = returns
+        advantages = self.baseline_network.calculate_advantage(
+            returns, observations
+        )
 
         if self.config.normalize_advantage:
             advantages = self.normalize_advantage(advantages)
@@ -308,8 +287,7 @@ class PolicyGradient(object):
             advantages = self.calculate_advantage(returns, observations)
 
             # run training operations
-            if self.config.use_baseline:
-                self.baseline_network.update_baseline(returns, observations)
+            self.baseline_network.update_baseline(returns, observations)
             self.update_policy(observations, actions, advantages)
 
             # logging
@@ -358,12 +336,13 @@ class PolicyGradient(object):
         """
         Recreate an env and record a video for one episode
         """
-        env = gym.make(self.config.env_name)
+        env = get_env()
         env.seed(self.seed)
         env = gym.wrappers.Monitor(
             env, self.config.record_path, video_callable=lambda x: True, resume=True
         )
         self.evaluate(env, 1)
+        env.close()
 
     def run(self):
         """

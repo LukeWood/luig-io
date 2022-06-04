@@ -6,25 +6,17 @@ import gym
 from policy_gradient import PolicyGradient
 from config import get_config
 import random
-
+import gym_super_mario_bros
+from helpers import get_env
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--env-name", required=True, type=str, choices=["cartpole", "pendulum", "cheetah", "mario"]
-)
-parser.add_argument("--baseline", dest="use_baseline", action="store_true")
-parser.add_argument("--no-baseline", dest="use_baseline", action="store_false")
 parser.add_argument("--seed", type=int, default=1)
-
-parser.set_defaults(use_baseline=True)
-
 
 if __name__ == "__main__":
     args = parser.parse_args()
     np.random.seed(args.seed)
     random.seed(args.seed)
-
-    config = get_config(args.env_name, args.use_baseline, args.seed)
-    env = gym.make(config.env_name)
+    tf.random.set_seet(args.seed)
     # train model
+    env = get_env()
     model = PolicyGradient(env, config, args.seed)
     model.run()

@@ -1,7 +1,7 @@
 import numpy as np
 from tensorflow import keras
 import tensorflow as tf
-from network_utils import build_mlp
+from network_utils import buld_network
 
 class BaselineNetwork(keras.Model):
     """
@@ -20,8 +20,9 @@ class BaselineNetwork(keras.Model):
         self.env = env
         self.baseline = None
         self.lr = self.config.learning_rate
-        self.observation_dim = self.env.observation_space.shape[0]
-        self.network = build_mlp(
+
+        self.network = build_network(
+            self.env.observation_space.shape,
             1, config, name="baseline"
         )
         self.optimizer = keras.optimizers.Adam(learning_rate=config.learning_rate)
