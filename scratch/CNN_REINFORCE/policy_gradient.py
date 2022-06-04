@@ -122,8 +122,8 @@ class PolicyGradient(object):
         while num_episodes or t < self.config.batch_size:
             states, actions, rewards = [], [], []
             episode_reward = 0
+            state = env.reset()
             for step in range(self.config.max_ep_len):
-                state = env.reset()
                 states.append(state)
                 action = self.policy.act(np.array(states[-1])[None])[0]
                 state, reward, done, info = env.step(action)

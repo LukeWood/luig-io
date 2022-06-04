@@ -2,7 +2,7 @@
 class config_mario:
     def __init__(self, seed):
         self.env_name = "SuperMarioBros-v0"
-        self.record = False
+        self.record = True
         seed_str = "seed=" + str(seed)
         # output config
         self.output_path = "results/{}-{}/".format(
