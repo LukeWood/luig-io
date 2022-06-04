@@ -18,21 +18,23 @@ class LazyFrames:
         This object should only be converted to numpy array just before forward pass.
     """
 
-    __slots__ = ("frame_shape", "dtype", "shape", "lz4_compress", "_frames")
+    __slots__ = ("frame_shape", "dtype", "shape", "lz4_compress","axis", "_frames")
 
-    def __init__(self, frames: list, lz4_compress: bool = False):
+    def __init__(self, frames: list, lz4_compress: bool = False, axis=0):
         """Lazyframe for a set of frames and if to apply lz4.
 
         Args:
             frames (list): The frames to convert to lazy frames
             lz4_compress (bool): Use lz4 to compress the frames internally
-
+            axis: which axis to stack frames on
         Raises:
             DependencyNotInstalled: lz4 is not installed
         """
         self.frame_shape = tuple(frames[0].shape)
         self.shape = (len(frames),) + self.frame_shape
         self.dtype = frames[0].dtype
+        self.axis = axis
+
         if lz4_compress:
             try:
                 from lz4.block import compress
@@ -80,7 +82,7 @@ class LazyFrames:
         if isinstance(int_or_slice, int):
             return self._check_decompress(self._frames[int_or_slice])  # single frame
         return np.stack(
-            [self._check_decompress(f) for f in self._frames[int_or_slice]], axis=0
+            [self._check_decompress(f) for f in self._frames[int_or_slice]], axis=self.axis
         )
 
     def __eq__(self, other):
