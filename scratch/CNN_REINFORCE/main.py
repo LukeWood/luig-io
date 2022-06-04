@@ -23,6 +23,5 @@ if __name__ == "__main__":
     config = get_config(args.seed)
     print('action space', env.action_space)
     print('action_space', env.action_space.n)
-    input()
     model = PolicyGradient(env, config, args.seed)
     model.run()
