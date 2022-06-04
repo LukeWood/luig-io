@@ -57,3 +57,4 @@ To silence this warning, decorate the function with @tf.autograph.experimental.d
 Cause: mangled names are not yet supported
 To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
 2022-06-04 11:34:25,307:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 11:37:03,253:INFO: Average reward: 0.00 +/- 0.00
