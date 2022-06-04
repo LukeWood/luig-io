@@ -58,3 +58,21 @@ Cause: mangled names are not yet supported
 To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
 2022-06-04 11:34:25,307:INFO: Average reward: 0.00 +/- 0.00
 2022-06-04 11:37:03,253:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 13:38:40,336:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17ef8ee80>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:41:23,196:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 13:43:52,123:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 13:48:08,141:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1827026d0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:48:15,701:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17a88ce80>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:49:09,229:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1775b0e80>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:00:36,636:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x178702df0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:03:11,233:INFO: Average reward: 0.00 +/- 0.00

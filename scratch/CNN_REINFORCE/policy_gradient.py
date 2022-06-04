@@ -208,6 +208,8 @@ class PolicyGradient(object):
         advantages -= np.mean(advantages, axis=-1)
 
         stddev = np.std(advantages, axis=-1)
+        if stddev == 0:
+            return np.zeros_like(advantages)
         advantages = np.divide(advantages, stddev, where=stddev!=0)
         advantages = np.where(stddev == 0, np.zeros_like(advantages), advantages)
         return advantages
@@ -224,7 +226,6 @@ class PolicyGradient(object):
         advantages = self.baseline_network.calculate_advantage(
             returns, observations
         )
-
         if self.config.normalize_advantage:
             advantages = self.normalize_advantage(advantages)
 

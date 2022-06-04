@@ -1,0 +1,149 @@
+2022-06-04 13:48:49,253:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x177ddfe50>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:49:41,788:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17f128e80>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:52:06,685:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 13:54:34,784:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 13:55:37,735:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17ed74e80>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 13:56:36,900:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1780e5e20>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:03:32,606:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17f9b6df0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:05:59,897:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:08:38,625:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:10:03,586:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x174bced90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:10:27,964:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17d253dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:13:00,996:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:15:44,155:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:23:57,995:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x175b44dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:26:40,446:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:29:16,215:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:34:50,549:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17ced4580>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:35:08,235:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:35:25,484:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:35:42,906:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x173f58d90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:35:59,990:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:36:40,733:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x176b7cdc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:36:57,687:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:37:14,050:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:38:16,267:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17ffa6dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:38:30,439:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1812b7fd0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:38:47,514:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:38:58,469:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x178343fd0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:39:15,511:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:39:44,460:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x183d6ffa0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:40:02,157:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:40:47,563:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1777acf40>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:41:00,065:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:41:18,068:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1780ecdc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:41:30,692:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:41:42,602:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:42:22,983:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x176b0dd90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:44:44,392:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x178e77fd0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:44:56,327:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:45:07,594:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:45:19,018:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:46:44,828:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x173f25fa0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:46:56,741:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:47:08,062:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:47:19,304:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:51:25,167:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x178b5ed90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:51:37,084:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:51:48,322:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:51:59,584:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:52:22,394:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x181514d90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:52:34,531:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:52:46,081:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:53:17,243:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x1792f3fd0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:53:29,056:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:53:40,556:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:53:52,295:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:54:17,570:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x175fd4d90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:54:29,562:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:54:40,861:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:54:52,259:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:55:20,644:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x180224dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:55:43,447:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x179856dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:55:55,114:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:56:13,123:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17bbd2d90>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:56:25,588:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:56:38,158:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x17c42ddf0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:56:48,876:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:57:12,648:WARNING: AutoGraph could not transform <bound method ResnetBlock.call of <luig_io.models.resnet_18.ResnetBlock object at 0x181bc0dc0>> and will run it as-is.
+Cause: mangled names are not yet supported
+To silence this warning, decorate the function with @tf.autograph.experimental.do_not_convert
+2022-06-04 14:57:23,026:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:57:32,787:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 14:57:42,669:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:00:45,763:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:00:49,363:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:00:52,971:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:00:56,577:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:00,156:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:03,840:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:07,699:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:11,564:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:15,302:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:18,987:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:22,658:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:26,654:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:30,571:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:34,636:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:38,515:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:42,183:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:45,963:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:01:49,700:INFO: Average reward: 0.00 +/- 0.00
+2022-06-04 15:03:19,511:INFO: Average reward: -100.00 +/- 0.00
+2022-06-04 15:03:55,118:INFO: Average reward: -100.00 +/- 0.00

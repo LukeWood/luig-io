@@ -16,7 +16,7 @@ class config_mario:
         self.record_freq = 5
         self.summary_freq = 1
 
-        self.action_dim = 6
+        self.action_dim = 7
 
         # model and training config
         self.num_batches = 100  # number of batches trained on

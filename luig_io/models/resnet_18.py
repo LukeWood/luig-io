@@ -4,14 +4,7 @@ from keras import Model
 import tensorflow as tf
 
 class ResnetBlock(Model):
-    """
-    A standard resnet block.
-    """
-
     def __init__(self, channels: int, use_batchnorm=True, down_sample=False):
-        """
-        channels: same as number of convolution kernels
-        """
         super().__init__()
         self.use_batchnorm = use_batchnorm
         self.__channels = channels
@@ -19,7 +12,6 @@ class ResnetBlock(Model):
         self.__strides = [2, 1] if down_sample else [1, 1]
 
         KERNEL_SIZE = (3, 3)
-        # use He initialization, instead of Xavier (a.k.a 'glorot_uniform' in Keras), as suggested in [2]
         INIT_SCHEME = "he_normal"
 
         self.conv_1 = Conv2D(self.__channels, strides=self.__strides[0],
@@ -57,10 +49,20 @@ class ResnetBlock(Model):
         out = tf.nn.relu(x)
         return out
 
+def SimpleCNN(**kwargs):
+    return tf.keras.Sequential(
+        [
+            Conv2D(64, 3, activation='relu'),
+            MaxPool2D(),
+            Conv2D(32, 3, activation='relu'),
+            MaxPool2D(),
+            Conv2D(16, 3, activation='relu'),
+        ]
+    )
 
 class ResNet18(Model):
 
-    def __init__(self, use_batchnorm=True **kwargs):
+    def __init__(self, use_batchnorm=False, **kwargs):
         super().__init__(**kwargs)
         self.use_batchnorm = use_batchnorm
         self.conv_1 = Conv2D(64, (7, 7), strides=2,
@@ -79,7 +81,7 @@ class ResNet18(Model):
 
     def call(self, inputs):
         out = self.conv_1(inputs)
-        if self.use_baseline:
+        if self.use_batchnorm:
             out = self.init_bn(out)
         out = tf.nn.relu(out)
         out = self.pool_2(out)

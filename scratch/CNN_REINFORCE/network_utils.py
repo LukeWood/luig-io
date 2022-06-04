@@ -16,7 +16,8 @@ def build_network(input_shape, output_size,  name=None):
         A keras.Model representing the network.
     """
     inputs = layers.Input(input_shape)
-    encoder = luig_io.models.ResNet18()
+    encoder = luig_io.models.SimpleCNN()
+    # encoder = luig_io.models.ResNet18()
     x = encoder(inputs)
     x = layers.Flatten()(x)
     x = layers.Dense(output_size, activation=None)(x)

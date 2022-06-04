@@ -18,7 +18,6 @@ class BaselineNetwork(keras.Model):
         super().__init__()
         self.config = config
         self.env = env
-        self.baseline = None
         self.lr = self.config.learning_rate
 
         self.network = build_network(
@@ -26,7 +25,6 @@ class BaselineNetwork(keras.Model):
             1, name="baseline"
         )
         self.optimizer = keras.optimizers.Adam(learning_rate=config.learning_rate)
-        self.loss = keras.losses.MeanSquaredError()
 
     def call(self, observations):
         """
@@ -77,17 +75,9 @@ class BaselineNetwork(keras.Model):
             returns: np.array of shape [batch size], containing all discounted
                 future returns for each step
             observations: np.array of shape [batch size, dim(observation space)]
-
-        TODO:
-        Compute the loss (MSE), backpropagate, and step self.optimizer.
-        You may (though not necessary) find it useful to do perform these steps
-        more than one once, since this method is only called once per policy update.
-        If you want to use mini-batch SGD, we have provided a helper function
-        called batch_iterator (implemented in general.py).
         """
-        for _ in range(3):
-            with tf.GradientTape() as tape:
-                predictions = self(observations)
-                loss = self.loss(predictions, returns)
-            grads = tape.gradient(loss, self.trainable_weights)
-            self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
+        with tf.GradientTape() as tape:
+            predictions = self(observations)
+            loss = tf.math.reduce_mean(tf.math.abs(predictions - returns)**2)
+        grads = tape.gradient(loss, self.trainable_weights)
+        self.optimizer.apply_gradients(zip(grads, self.trainable_weights))

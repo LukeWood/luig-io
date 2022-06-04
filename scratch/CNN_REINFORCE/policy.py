@@ -41,7 +41,10 @@ class CategoricalPolicy(BasePolicy):
         See https://pytorch.org/docs/stable/distributions.html#categorical
         """
         predictions = self.network(observations)
-        distribution = tfp.distributions.categorical.Categorical(probs=None, logits=predictions)
+        distribution = tfp.distributions.categorical.Categorical(
+            logits=predictions,
+            allow_nan_stats=False
+        )
         return distribution
 
 
