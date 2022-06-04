@@ -1,7 +1,7 @@
 import numpy as np
 from tensorflow import keras
 import tensorflow as tf
-from network_utils import buld_network
+from network_utils import build_network
 
 class BaselineNetwork(keras.Model):
     """
