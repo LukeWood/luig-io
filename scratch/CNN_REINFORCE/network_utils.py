@@ -20,4 +20,4 @@ def build_network(input_shape, output_size,  name=None):
     x = encoder(inputs)
     x = layers.Flatten()(x)
     x = layers.Dense(output_size, activation=None)(x)
-    return keras.Sequential(layers, name=name)
+    return keras.Model(inputs, x, name=name)

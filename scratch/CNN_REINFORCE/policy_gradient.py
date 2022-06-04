@@ -45,19 +45,18 @@ class PolicyGradient(object):
         self.discrete = isinstance(env.action_space, gym.spaces.Discrete)
         self.observation_dim = self.env.observation_space.shape[0]
         self.action_dim = (
-            self.env.action_space.n if self.discrete else self.env.action_space.shape[0]
+            config.action_dim
         )
 
         self.lr = self.config.learning_rate
 
         self.init_policy()
-
-        if config.use_baseline:
-            self.baseline_network = BaselineNetwork(env, config)
+        self.baseline_network = BaselineNetwork(env, config)
 
     def init_policy(self):
         self.network = build_network(
-            self.action_dim, self.config,
+            self.env.observation_space.shape,
+            self.action_dim,
             name="policy"
         )
         if self.discrete:
@@ -121,13 +120,12 @@ class PolicyGradient(object):
         t = 0
 
         while num_episodes or t < self.config.batch_size:
-            state = env.reset()
             states, actions, rewards = [], [], []
             episode_reward = 0
-
             for step in range(self.config.max_ep_len):
+                state = env.reset()
                 states.append(state)
-                action = self.policy.act(states[-1][None])[0]
+                action = self.policy.act(np.array(states[-1])[None])[0]
                 state, reward, done, info = env.step(action)
                 actions.append(action)
                 rewards.append(reward)
@@ -208,7 +206,10 @@ class PolicyGradient(object):
         This function is called only if self.config.normalize_advantage is True.
         """
         advantages -= np.mean(advantages, axis=-1)
-        advantages /= np.std(advantages, axis=-1)
+
+        stddev = np.std(advantages, axis=-1)
+        advantages = np.divide(advantages, stddev, where=stddev!=0)
+        advantages = np.where(stddev == 0, np.zeros_like(advantages), advantages)
         return advantages
 
     def calculate_advantage(self, returns, observations):
@@ -342,7 +343,7 @@ class PolicyGradient(object):
             env, self.config.record_path, video_callable=lambda x: True, resume=True
         )
         self.evaluate(env, 1)
-        env.close()
+
 
     def run(self):
         """

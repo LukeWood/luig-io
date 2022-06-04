@@ -112,19 +112,9 @@ class FrameStack(gym.ObservationWrapper):
         - The observation space must be :class:`Box` type. If one uses :class:`Dict`
           as observation space, it should apply :class:`FlattenObservation` wrapper first.
           - After :meth:`reset` is called, the frame buffer will be filled with the initial observation. I.e. the observation returned by :meth:`reset` will consist of ``num_stack`-many identical frames,
-
-    Example:
-        >>> import gym
-        >>> env = gym.make('CarRacing-v1')
-        >>> env = FrameStack(env, 4)
-        >>> env.observation_space
-        Box(4, 96, 96, 3)
-        >>> obs = env.reset()
-        >>> obs.shape
-        (4, 96, 96, 3)
     """
 
-    def __init__(self, env: gym.Env, num_stack: int, lz4_compress: bool = False):
+    def __init__(self, env: gym.Env, num_stack: int, lz4_compress: bool = False, axis=0):
         """Observation wrapper that stacks the observations in a rolling manner.
 
         Args:
@@ -135,12 +125,12 @@ class FrameStack(gym.ObservationWrapper):
         super().__init__(env)
         self.num_stack = num_stack
         self.lz4_compress = lz4_compress
-
+        self.axis = axis
         self.frames = deque(maxlen=num_stack)
 
-        low = np.repeat(self.observation_space.low[np.newaxis, ...], num_stack, axis=0)
+        low = np.repeat(self.observation_space.low, num_stack, axis=self.axis)
         high = np.repeat(
-            self.observation_space.high[np.newaxis, ...], num_stack, axis=0
+            self.observation_space.high, num_stack, axis=self.axis
         )
         self.observation_space = Box(
             low=low, high=high, dtype=self.observation_space.dtype
@@ -156,7 +146,7 @@ class FrameStack(gym.ObservationWrapper):
             :class:`LazyFrames` object for the wrapper's frame buffer,  :attr:`self.frames`
         """
         assert len(self.frames) == self.num_stack, (len(self.frames), self.num_stack)
-        return LazyFrames(list(self.frames), self.lz4_compress)
+        return LazyFrames(list(self.frames), self.lz4_compress, axis=self.axis)
 
     def step(self, action):
         """Steps through the environment, appending the observation to the frame buffer.

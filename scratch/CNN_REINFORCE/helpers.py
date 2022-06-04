@@ -8,5 +8,5 @@ def get_env():
     env = JoypadSpace(env, SIMPLE_MOVEMENT)
     env = ResizeFrame(env, (84, 84))
     env = GrayScale(env)
-    env = FrameStack(env, axis=-1)
+    env = FrameStack(env, num_stack=4, axis=-1)
     return env

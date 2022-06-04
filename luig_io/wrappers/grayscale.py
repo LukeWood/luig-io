@@ -10,5 +10,4 @@ class GrayScale(gym.ObservationWrapper):
 
     def observation(self, obs):
         gray = cv2.cvtColor(obs, cv2.COLOR_RGB2GRAY)
-        gray = gray[..., None]
         return gray

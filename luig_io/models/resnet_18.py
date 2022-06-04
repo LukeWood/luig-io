@@ -1,7 +1,6 @@
 from keras.callbacks import EarlyStopping
 from keras.layers import Dense, Conv2D,  MaxPool2D, Flatten, GlobalAveragePooling2D,  BatchNormalization, Layer, Add
-from keras.models import Sequential
-from keras.models import Model
+from keras import Model
 import tensorflow as tf
 
 class ResnetBlock(Model):
@@ -58,10 +57,7 @@ class ResnetBlock(Model):
 
 class ResNet18(Model):
 
-    def __init__(self, num_classes, **kwargs):
-        """
-            num_classes: number of classes in specific classification task.
-        """
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.conv_1 = Conv2D(64, (7, 7), strides=2,
                              padding="same", kernel_initializer="he_normal")
@@ -76,8 +72,6 @@ class ResNet18(Model):
         self.res_4_1 = ResnetBlock(512, down_sample=True)
         self.res_4_2 = ResnetBlock(512)
         self.avg_pool = GlobalAveragePooling2D()
-        self.flat = Flatten()
-        self.fc = Dense(num_classes, activation="softmax")
 
     def call(self, inputs):
         out = self.conv_1(inputs)
@@ -87,6 +81,4 @@ class ResNet18(Model):
         for res_block in [self.res_1_1, self.res_1_2, self.res_2_1, self.res_2_2, self.res_3_1, self.res_3_2, self.res_4_1, self.res_4_2]:
             out = res_block(out)
         out = self.avg_pool(out)
-        out = self.flat(out)
-        out = self.fc(out)
         return out

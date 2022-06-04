@@ -1,8 +1,8 @@
 
 class config_mario:
-    def __init__(self, use_baseline, seed):
+    def __init__(self, seed):
         self.env_name = "SuperMarioBros-v0"
-        self.record = True
+        self.record = False
         seed_str = "seed=" + str(seed)
         # output config
         self.output_path = "results/{}-{}/".format(
@@ -15,6 +15,8 @@ class config_mario:
         self.record_path = self.output_path
         self.record_freq = 5
         self.summary_freq = 1
+
+        self.action_dim = 7
 
         # model and training config
         self.num_batches = 100  # number of batches trained on
