@@ -52,11 +52,11 @@ class ResnetBlock(Model):
 def SimpleCNN(**kwargs):
     return tf.keras.Sequential(
         [
-            Conv2D(64, 3, activation='relu'),
+            Conv2D(256, 3, activation='relu'),
             MaxPool2D(),
-            Conv2D(32, 3, activation='relu'),
+            Conv2D(128, 3, activation='relu'),
             MaxPool2D(),
-            Conv2D(16, 3, activation='relu'),
+            Conv2D(64,  3, activation='relu'),
         ]
     )
 
