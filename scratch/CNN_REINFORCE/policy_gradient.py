@@ -51,7 +51,16 @@ class PolicyGradient(object):
         self.lr = self.config.learning_rate
 
         self.init_policy()
+        self.init_baseline()
+
+    def init_baseline(self):
         self.baseline_network = BaselineNetwork(env, config)
+        self.baseline_network.compile(
+            optimizer='adam',
+            loss='mse',
+            metrics=['mse', 'mae']
+        )
+
 
     def init_policy(self):
         self.network = build_network(
@@ -63,7 +72,7 @@ class PolicyGradient(object):
             self.policy = CategoricalPolicy(self.network)
         else:
             self.policy = GaussianPolicy(self.network, self.action_dim)
-        self.optimizer = keras.optimizers.Adam(learning_rate=self.config.learning_rate)
+        self.policy.compile(optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate))
 
     def init_averages(self):
         """
@@ -239,25 +248,8 @@ class PolicyGradient(object):
                 [batch size, dim(action space)] if continuous
                 [batch size] (and integer type) if discrete
             advantages: np.array of shape [batch size]
-
-        Perform one update on the policy using the provided data.
-        To compute the loss, you will need the log probabilities of the actions
-        given the observations. Note that the policy's action_distribution
-        method returns an instance of a subclass of
-        torch.distributions.Distribution, and that object can be used to
-        compute log probabilities.
-        See https://pytorch.org/docs/stable/distributions.html#distribution
-
-        Note:
-        PyTorch optimizers will try to minimize the loss you compute, but you
-        want to maximize the policy's performance.
         """
-        with tf.GradientTape() as tape:
-            log_probs = self.policy.action_distribution(observations).log_prob(actions)
-            loss = log_probs * advantages
-            loss = -tf.math.reduce_mean(loss)
-        grads = tape.gradient(loss, self.policy.trainable_weights)
-        self.optimizer.apply_gradients(zip(grads, self.policy.trainable_weights))
+        self.policy.fit(observations, (actions, advantages), epochs=3)
 
     def train(self):
         """
@@ -289,7 +281,7 @@ class PolicyGradient(object):
             advantages = self.calculate_advantage(returns, observations)
 
             # run training operations
-            self.baseline_network.update_baseline(returns, observations)
+            self.baseline_network.fit(returns, observations, epochs=3, verbose=0)
             self.update_policy(observations, actions, advantages)
 
             # logging

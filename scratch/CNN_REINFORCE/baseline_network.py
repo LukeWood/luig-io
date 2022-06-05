@@ -44,7 +44,6 @@ class BaselineNetwork(keras.Model):
         directly referencing the network (so that the shape is correct).
         """
         output = tf.squeeze(self.network(observations), axis=-1)
-        assert len(output.shape) == 1
         return output
 
     def calculate_advantage(self, returns, observations):
@@ -65,19 +64,6 @@ class BaselineNetwork(keras.Model):
         converts numpy arrays to torch tensors. You will have to convert the
         network output back to numpy, which can be done via the numpy() method.
         """
-        predictions = self(observations).numpy()
+        predictions = self.predict(observations).numpy()
         advantages = returns - predictions
         return advantages
-
-    def update_baseline(self, returns, observations):
-        """
-        Args:
-            returns: np.array of shape [batch size], containing all discounted
-                future returns for each step
-            observations: np.array of shape [batch size, dim(observation space)]
-        """
-        with tf.GradientTape() as tape:
-            predictions = self(observations)
-            loss = tf.math.reduce_mean(tf.math.abs(predictions - returns)**2)
-        grads = tape.gradient(loss, self.trainable_weights)
-        self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
