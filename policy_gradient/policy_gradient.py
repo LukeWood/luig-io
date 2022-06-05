@@ -236,8 +236,7 @@ class PolicyGradient(object):
         advantages = self.baseline_network.calculate_advantage(
             returns, observations
         )
-        if self.config.normalize_advantage:
-            advantages = self.normalize_advantage(advantages)
+        advantages = self.normalize_advantage(advantages)
 
         return advantages
 
