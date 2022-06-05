@@ -53,9 +53,11 @@ class CategoricalPolicy(BasePolicy):
             log_probs = self.action_distribution(observations).log_prob(actions)
             loss = log_probs * advantages
             loss = -tf.math.reduce_mean(loss)
-        grads = tape.gradient(loss, self.trainable_variables)
-        self.optimizer.apply_gradients(zip(grads, self.trainable_variables))
 
+        grads = tape.gradient(loss, self.trainable_weights)
+        self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
+
+        return {"loss": loss}
 
 class GaussianPolicy(BasePolicy):
     def __init__(self, network, action_dim):

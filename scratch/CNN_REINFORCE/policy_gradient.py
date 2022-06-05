@@ -56,7 +56,7 @@ class PolicyGradient(object):
     def init_baseline(self, env, config):
         self.baseline_network = BaselineNetwork(env, config)
         self.baseline_network.compile(
-            optimizer='adam',
+            optimizer=optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate),
             loss='mse',
             metrics=['mse', 'mae']
         )
@@ -243,7 +243,7 @@ class PolicyGradient(object):
     def update_policy(self, observations, actions, advantages):
         """
         Args:
-            observations: np.array of shape [batch size, dim(observation space)]
+            observations: np.array of shape [batch size,] + observation_space.shape
             actions: np.array of shape
                 [batch size, dim(action space)] if continuous
                 [batch size] (and integer type) if discrete
@@ -281,7 +281,9 @@ class PolicyGradient(object):
             advantages = self.calculate_advantage(returns, observations)
 
             # run training operations
-            self.baseline_network.fit(returns, observations, epochs=3, verbose=0)
+            print("Updating baseline")
+            self.baseline_network.fit(observations, returns, epochs=3)
+            print("Updating policy")
             self.update_policy(observations, actions, advantages)
 
             # logging
