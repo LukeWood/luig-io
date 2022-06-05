@@ -52,9 +52,10 @@ class CategoricalPolicy(BasePolicy):
         with tf.GradientTape() as tape:
             log_probs = self.action_distribution(observations).log_prob(actions)
             loss = log_probs * advantages
-            loss = -tf.math.reduce_mean(loss)
-        
+            loss = -tf.math.reduce_mean(loss, axis=-1)
+
         grads = tape.gradient(loss, self.trainable_weights)
+        grads = tf.clip_by_global_norm(grads, 5.0)
         self.optimizer.apply_gradients(zip(grads, self.trainable_weights))
 
         return {"loss": loss}

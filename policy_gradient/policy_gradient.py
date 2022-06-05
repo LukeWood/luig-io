@@ -250,10 +250,10 @@ class PolicyGradient(object):
                 [batch size] (and integer type) if discrete
             advantages: np.array of shape [batch size]
         """
-        self.policy.fit(observations, (actions, advantages), shuffle=True, epochs=3)
+        self.policy.fit(observations, (actions, advantages), shuffle=True, epochs=10)
 
     def update_baseline(self, observations, returns):
-        self.baseline_network.fit(observations, returns, shuffle=True, epochs=3)
+        self.baseline_network.fit(observations, returns, shuffle=True, epochs=10)
 
     def train(self):
         """
