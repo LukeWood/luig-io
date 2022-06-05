@@ -20,8 +20,8 @@ class config_mario:
 
         # model and training config
         self.num_batches = 100  # number of batches trained on
-        self.batch_size = 2000  # number of steps used to compute each policy update
-        self.max_ep_len = 200  # maximum episode length
+        self.batch_size = 8000  # number of steps used to compute each policy update
+        self.max_ep_len = 8000  # maximum episode length
         self.learning_rate = 3e-2
         self.gamma = 0.99  # the discount factor
         self.normalize_advantage = True
