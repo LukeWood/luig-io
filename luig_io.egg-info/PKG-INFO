@@ -1,9 +1,12 @@
 Metadata-Version: 2.1
 Name: luig-io
 Version: 0.0.0
+Summary: UNKNOWN
 Home-page: https://github.com/lukewood/luig-io
 Author: Luke Wood
 Author-email: lukewoodcs@gmail.com
+License: UNKNOWN
+Platform: UNKNOWN
 Description-Content-Type: text/markdown
 
 ![luig-io](media/title.png)
@@ -22,3 +25,5 @@ The repo contains the following algorithms
 # Project Structure
 
 # Model Evaluation
+
+

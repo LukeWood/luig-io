@@ -8,3 +8,7 @@ luig_io.egg-info/requires.txt
 luig_io.egg-info/top_level.txt
 luig_io/models/__init__.py
 luig_io/models/resnet_18.py
+luig_io/wrappers/__init__.py
+luig_io/wrappers/frame_stack.py
+luig_io/wrappers/grayscale.py
+luig_io/wrappers/resize_frame.py
