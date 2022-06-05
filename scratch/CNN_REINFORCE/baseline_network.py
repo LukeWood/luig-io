@@ -5,7 +5,13 @@ from network_utils import build_network
 
 class BaselineNetwork(keras.Model):
     """
-    Class for implementing Baseline network
+    keras.Model implementing a Baseline network.
+
+    In policy gradient methods, the BaselineNetwork predicts the expected future returns
+    from a given environment state.  This is used to normalize the current action, and
+    allows the policy network to focus on learning the difference between each action,
+    instead of both the differences between each action and the future returns based on
+    the current state.
     """
 
     def __init__(self, env, config):
