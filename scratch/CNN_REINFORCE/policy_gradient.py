@@ -51,9 +51,9 @@ class PolicyGradient(object):
         self.lr = self.config.learning_rate
 
         self.init_policy()
-        self.init_baseline(env)
+        self.init_baseline(env, config)
 
-    def init_baseline(self, env):
+    def init_baseline(self, env, config):
         self.baseline_network = BaselineNetwork(env, config)
         self.baseline_network.compile(
             optimizer='adam',
