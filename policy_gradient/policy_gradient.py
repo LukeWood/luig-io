@@ -250,7 +250,10 @@ class PolicyGradient(object):
                 [batch size] (and integer type) if discrete
             advantages: np.array of shape [batch size]
         """
-        self.policy.fit(observations, (actions, advantages), epochs=3)
+        self.policy.fit(observations, (actions, advantages), shuffle=True, epochs=3)
+
+    def update_baseline(self, observations, returns):
+        self.baseline_network.fit(observations, returns, shuffle=True, epochs=3)
 
     def train(self):
         """
@@ -283,7 +286,7 @@ class PolicyGradient(object):
 
             # run training operations
             print("Updating baseline")
-            self.baseline_network.fit(observations, returns, epochs=3)
+            self.update_baseline(observations, returns)
             print("Updating policy")
             self.update_policy(observations, actions, advantages)
 
@@ -299,6 +302,7 @@ class PolicyGradient(object):
             )
             averaged_total_rewards.append(avg_reward)
             self.logger.info(msg)
+            last_record+=1
 
             if self.config.record and (last_record > self.config.record_freq):
                 self.logger.info("Recording...")

@@ -14,7 +14,7 @@ class config_mario:
         self.scores_output = self.output_path + "scores.npy"
         self.plot_output = self.output_path + "scores.png"
         self.record_path = self.output_path
-        self.record_freq = 5
+        self.record_freq = 3
         self.summary_freq = 1
 
         self.action_dim = len(COMPLEX_MOVEMENT)
@@ -24,7 +24,7 @@ class config_mario:
         self.batch_size = 200  # number of steps used to compute each policy update
         self.max_ep_len = 200  # maximum episode length
         self.learning_rate = 3e-2
-        self.gamma = 0.99  # the discount factor
+        self.gamma = 0.9999  # the discount factor
         self.normalize_advantage = True
 
         # since we start new episodes for each batch
