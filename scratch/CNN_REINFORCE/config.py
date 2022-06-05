@@ -1,7 +1,8 @@
+from gym_super_mario_bros.actions import COMPLEX_MOVEMENT
 
 class config_mario:
     def __init__(self, seed):
-        self.env_name = "SuperMarioBros-v0"
+        self.env_name = "SuperMarioBrosRandomStagesEnv-v4"
         self.record = True
         seed_str = "seed=" + str(seed)
         # output config
@@ -16,7 +17,7 @@ class config_mario:
         self.record_freq = 5
         self.summary_freq = 1
 
-        self.action_dim = 7
+        self.action_dim = len(COMPLEX_MOVEMENT)
 
         # model and training config
         self.num_batches = 100  # number of batches trained on

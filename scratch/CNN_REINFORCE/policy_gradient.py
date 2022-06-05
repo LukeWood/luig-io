@@ -136,6 +136,7 @@ class PolicyGradient(object):
                 states.append(state)
                 action = self.policy.act(np.array(states[-1])[None])[0]
                 state, reward, done, info = env.step(action)
+                reward -=0.1 # increase penalty for standing
                 actions.append(action)
                 rewards.append(reward)
                 episode_reward += reward
