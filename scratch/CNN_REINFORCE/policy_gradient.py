@@ -56,7 +56,7 @@ class PolicyGradient(object):
     def init_baseline(self, env, config):
         self.baseline_network = BaselineNetwork(env, config)
         self.baseline_network.compile(
-            optimizer=optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate),
+            optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate),
             loss='mse',
             metrics=['mse', 'mae']
         )
