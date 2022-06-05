@@ -64,6 +64,6 @@ class BaselineNetwork(keras.Model):
         converts numpy arrays to torch tensors. You will have to convert the
         network output back to numpy, which can be done via the numpy() method.
         """
-        predictions = self.predict(observations).numpy()
+        predictions = self.predict(observations)
         advantages = returns - predictions
         return advantages
