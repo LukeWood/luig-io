@@ -7,9 +7,11 @@ from luig_io.policy_gradient.policy import BasePolicy
 
 
 class CategoricalPolicy(BasePolicy):
-    def __init__(self, network):
+    def __init__(self, network, lowest_log=-50.0):
         super().__init__(self)
         self.network = network
+        # np.log(0.0000000000000000000001)==-50
+        self.lowest_log = lowest_log
 
     def action_distribution(self, observations):
         """
@@ -21,7 +23,8 @@ class CategoricalPolicy(BasePolicy):
         """
         predictions = self.network(observations)
         distribution = tfp.distributions.categorical.Categorical(
-            logits=predictions, allow_nan_stats=True
+            logits=predictions, allow_nan_stats=True,
+            validate_args=True
         )
         return distribution
 
@@ -34,6 +37,10 @@ class CategoricalPolicy(BasePolicy):
         observations, (actions, advantages) = data
         with tf.GradientTape() as tape:
             log_probs = self.action_distribution(observations).log_prob(actions)
+
+            if self.lowest_log is not None:
+                log_probs = tf.math.minimum(log_probs, self.lowest_log)
+
             loss = log_probs * advantages
             loss = -tf.math.reduce_mean(loss, axis=-1)
             # Make sure to add regularization losses
