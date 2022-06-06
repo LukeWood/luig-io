@@ -1,7 +1,14 @@
 ![luig-io](media/title.png)
 
 luig-io is a collection of deep reinforcement learning algorithms
-implemented using the Keras library.  The algorithms are geared at
+implemented using the Keras library.
+My implementations focus on readability, following Keras best practices, and producing
+idiomatic abstractions.
+
+Due to the challenging nature of Reinforcement Learning, `luig-io` implementations tend to
+rely on low level Keras constructs, such as `train_step()` overriding.
+
+The algorithms are geared at
 solving the [gym-super-mario-bros](https://github.com/Kautenja/gym-super-mario-bros)
 environment.
 
@@ -42,6 +49,10 @@ The repo contains the following algorithms
 
 - [REINFORCE (aka vanilla Policy Gradient)](policy_gradient/)
 - More in progress!
+
+## Contributing
+
+Contributions are welcome.  Send them over via a PR.
 
 ## Thanks for Checking out Luig-IO!
 
