@@ -1,6 +1,6 @@
 import cv2
-import numpy as np
 import gym
+import numpy as np
 
 
 class ResizeFrame(gym.ObservationWrapper):

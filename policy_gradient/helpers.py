@@ -1,7 +1,8 @@
 import gym_super_mario_bros
-from nes_py.wrappers import JoypadSpace
 from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-from luig_io.wrappers import ResizeFrame, GrayScale, FrameStack
+from nes_py.wrappers import JoypadSpace
+
+from luig_io.wrappers import FrameStack, GrayScale, ResizeFrame
 
 
 def get_env(config):

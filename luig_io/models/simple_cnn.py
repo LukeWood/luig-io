@@ -1,5 +1,5 @@
-from tensorflow.keras import layers
 import tensorflow as tf
+from tensorflow.keras import layers, regularizers
 
 
 def SimpleCNN(**kwargs):

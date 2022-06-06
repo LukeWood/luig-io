@@ -1,2 +1,2 @@
-from luig_io.policy_gradient.policy import CategoricalPolicy
 from luig_io.policy_gradient.baseline_network import BaselineNetwork
+from luig_io.policy_gradient.policy import CategoricalPolicy

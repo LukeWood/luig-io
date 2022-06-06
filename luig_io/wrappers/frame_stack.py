@@ -2,9 +2,8 @@
 from collections import deque
 from typing import Union
 
-import numpy as np
-
 import gym
+import numpy as np
 from gym.error import DependencyNotInstalled
 from gym.spaces import Box
 

@@ -1,6 +1,5 @@
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
-
 import tensorflow as tf
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
 
 
 class config_mario:

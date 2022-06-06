@@ -1,7 +1,8 @@
-import tensorflow as tf
-from tensorflow import keras
 import numpy as np
+import tensorflow as tf
 import tensorflow_probability as tfp
+from tensorflow import keras
+
 from luig_io.policy_gradient.policy import BasePolicy
 
 

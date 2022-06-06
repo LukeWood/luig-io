@@ -1,14 +1,16 @@
 # -*- coding: UTF-8 -*-
 
 import argparse
-import numpy as np
-import gym
-from policy_gradient import PolicyGradient
-from config import get_config
 import random
+
+import gym
 import gym_super_mario_bros
-from helpers import get_env
+import numpy as np
 import tensorflow as tf
+from config import get_config
+from helpers import get_env
+
+from policy_gradient import PolicyGradient
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=1)
@@ -21,7 +23,5 @@ if __name__ == "__main__":
     # train model
     config = get_config(args.seed)
     env = get_env(config)
-    print("action space", env.action_space)
-    print("action_space", env.action_space.n)
     model = PolicyGradient(env, config, args.seed)
     model.run()

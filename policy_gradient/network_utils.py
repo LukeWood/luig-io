@@ -1,19 +1,19 @@
-from tensorflow import keras
+import tensorflow as tf
 from keras.layers import (
-    Dense,
+    Add,
+    BatchNormalization,
     Conv2D,
-    MaxPool2D,
+    Dense,
     Flatten,
     GlobalAveragePooling2D,
-    BatchNormalization,
     Layer,
-    Add,
+    MaxPool2D,
 )
-from keras.models import Sequential
-from keras.models import Model
+from keras.models import Model, Sequential
+from tensorflow import keras
 from tensorflow.keras import layers
+
 import luig_io
-import tensorflow as tf
 
 
 def build_network(input_shape, output_size, name=None):

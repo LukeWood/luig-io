@@ -1,16 +1,16 @@
+import tensorflow as tf
+from keras import Model
 from keras.callbacks import EarlyStopping
 from keras.layers import (
-    Dense,
+    Add,
+    BatchNormalization,
     Conv2D,
-    MaxPool2D,
+    Dense,
     Flatten,
     GlobalAveragePooling2D,
-    BatchNormalization,
     Layer,
-    Add,
+    MaxPool2D,
 )
-from keras import Model
-import tensorflow as tf
 
 
 class ResnetBlock(Model):
