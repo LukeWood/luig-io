@@ -47,7 +47,9 @@ The entrypoints contain code to run the actual models.  This includes helpers, e
 The repo contains the following algorithms
 
 - [REINFORCE (aka vanilla Policy Gradient)](policy_gradient/)
-- More in progress!
+- ❌ WorldModels (in progress)
+- Deep Q Learning
+- ... and more!
 
 ## Contributing
 
