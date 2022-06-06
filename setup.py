@@ -19,6 +19,6 @@ setup(
         "flake8",
         "tensorflow",
         "gym-super-mario-bros",
-        "gym==0.22.0"
+        "gym==0.22.0",
     ],
 )

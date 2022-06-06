@@ -1,7 +1,17 @@
 from keras.callbacks import EarlyStopping
-from keras.layers import Dense, Conv2D,  MaxPool2D, Flatten, GlobalAveragePooling2D,  BatchNormalization, Layer, Add
+from keras.layers import (
+    Dense,
+    Conv2D,
+    MaxPool2D,
+    Flatten,
+    GlobalAveragePooling2D,
+    BatchNormalization,
+    Layer,
+    Add,
+)
 from keras import Model
 import tensorflow as tf
+
 
 class ResnetBlock(Model):
     def __init__(self, channels: int, use_batchnorm=True, down_sample=False):
@@ -14,18 +24,33 @@ class ResnetBlock(Model):
         KERNEL_SIZE = (3, 3)
         INIT_SCHEME = "he_normal"
 
-        self.conv_1 = Conv2D(self.__channels, strides=self.__strides[0],
-                             kernel_size=KERNEL_SIZE, padding="same", kernel_initializer=INIT_SCHEME)
+        self.conv_1 = Conv2D(
+            self.__channels,
+            strides=self.__strides[0],
+            kernel_size=KERNEL_SIZE,
+            padding="same",
+            kernel_initializer=INIT_SCHEME,
+        )
         self.bn_1 = BatchNormalization()
-        self.conv_2 = Conv2D(self.__channels, strides=self.__strides[1],
-                             kernel_size=KERNEL_SIZE, padding="same", kernel_initializer=INIT_SCHEME)
+        self.conv_2 = Conv2D(
+            self.__channels,
+            strides=self.__strides[1],
+            kernel_size=KERNEL_SIZE,
+            padding="same",
+            kernel_initializer=INIT_SCHEME,
+        )
         self.bn_2 = BatchNormalization()
         self.merge = Add()
 
         if self.__down_sample:
             # perform down sampling using stride of 2, according to [1].
             self.res_conv = Conv2D(
-                self.__channels, strides=2, kernel_size=(1, 1), kernel_initializer=INIT_SCHEME, padding="same")
+                self.__channels,
+                strides=2,
+                kernel_size=(1, 1),
+                kernel_initializer=INIT_SCHEME,
+                padding="same",
+            )
             self.res_bn = BatchNormalization()
 
     def call(self, inputs):
@@ -49,24 +74,26 @@ class ResnetBlock(Model):
         out = tf.nn.relu(x)
         return out
 
+
 def SimpleCNN(**kwargs):
     return tf.keras.Sequential(
         [
-            Conv2D(256, 3, activation='relu'),
+            Conv2D(256, 3, activation="relu"),
             MaxPool2D(),
-            Conv2D(128, 3, activation='relu'),
+            Conv2D(128, 3, activation="relu"),
             MaxPool2D(),
-            Conv2D(64,  3, activation='relu'),
+            Conv2D(64, 3, activation="relu"),
         ]
     )
 
-class ResNet18(Model):
 
+class ResNet18(Model):
     def __init__(self, use_batchnorm=False, **kwargs):
         super().__init__(**kwargs)
         self.use_batchnorm = use_batchnorm
-        self.conv_1 = Conv2D(64, (7, 7), strides=2,
-                             padding="same", kernel_initializer="he_normal")
+        self.conv_1 = Conv2D(
+            64, (7, 7), strides=2, padding="same", kernel_initializer="he_normal"
+        )
         self.init_bn = BatchNormalization()
         self.pool_2 = MaxPool2D(pool_size=(2, 2), strides=2, padding="same")
         self.res_1_1 = ResnetBlock(64, use_batchnorm=use_batchnorm)
@@ -85,7 +112,16 @@ class ResNet18(Model):
             out = self.init_bn(out)
         out = tf.nn.relu(out)
         out = self.pool_2(out)
-        for res_block in [self.res_1_1, self.res_1_2, self.res_2_1, self.res_2_2, self.res_3_1, self.res_3_2, self.res_4_1, self.res_4_2]:
+        for res_block in [
+            self.res_1_1,
+            self.res_1_2,
+            self.res_2_1,
+            self.res_2_2,
+            self.res_3_1,
+            self.res_3_2,
+            self.res_4_1,
+            self.res_4_2,
+        ]:
             out = res_block(out)
         out = self.avg_pool(out)
         return out

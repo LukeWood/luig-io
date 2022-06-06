@@ -1,13 +1,15 @@
 import numpy as np
 import gym
 import os
-from baseline_network import BaselineNetwork
+import luig_io
+from luig_io.policy_gradient import BaselineNetwork
 from network_utils import build_network
-from policy import CategoricalPolicy, GaussianPolicy
+from luig_io.policy_gradient import CategoricalPolicy
 from general import get_logger, export_plot
 from tensorflow import keras
 import tensorflow as tf
 from helpers import get_env
+
 
 class PolicyGradient(object):
     """
@@ -44,9 +46,7 @@ class PolicyGradient(object):
         # discrete vs continuous action space
         self.discrete = isinstance(env.action_space, gym.spaces.Discrete)
         self.observation_dim = self.env.observation_space.shape[0]
-        self.action_dim = (
-            config.action_dim
-        )
+        self.action_dim = config.action_dim
 
         self.lr = self.config.learning_rate
 
@@ -54,25 +54,26 @@ class PolicyGradient(object):
         self.init_baseline(env, config)
 
     def init_baseline(self, env, config):
-        self.baseline_network = BaselineNetwork(env, config)
-        self.baseline_network.compile(
-            optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate),
-            loss='mse',
-            metrics=['mse', 'mae']
+        self.baseline_network = BaselineNetwork(
+            build_network(env.observation_space.shape, 1, name="baseline")
         )
-
+        self.baseline_network.compile(
+            optimizer=keras.optimizers.Adam(learning_rate=config.learning_rate),
+            loss="mse",
+            metrics=["mse", "mae"],
+        )
 
     def init_policy(self):
         self.network = build_network(
-            self.env.observation_space.shape,
-            self.action_dim,
-            name="policy"
+            self.env.observation_space.shape, self.action_dim, name="policy"
         )
         if self.discrete:
             self.policy = CategoricalPolicy(self.network)
         else:
             self.policy = GaussianPolicy(self.network, self.action_dim)
-        self.policy.compile(optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate))
+        self.policy.compile(
+            optimizer=keras.optimizers.Adam(learning_rate=self.config.learning_rate)
+        )
 
     def init_averages(self):
         """
@@ -136,7 +137,7 @@ class PolicyGradient(object):
                 states.append(state)
                 action = self.policy.act(np.array(states[-1])[None])[0]
                 state, reward, done, info = env.step(action)
-                reward -=0.1 # increase penalty for standing
+                reward -= 0.1  # increase penalty for standing
                 actions.append(action)
                 rewards.append(reward)
                 episode_reward += reward
@@ -191,7 +192,7 @@ class PolicyGradient(object):
             g_t = 0
             for r in np.flip(rewards, 0):
                 # TODO check correctness
-                g_t = r + self.config.gamma*g_t
+                g_t = r + self.config.gamma * g_t
                 returns.append(g_t)
             returns.reverse()
             #######################################################
@@ -220,7 +221,7 @@ class PolicyGradient(object):
         stddev = np.std(advantages, axis=-1)
         if stddev == 0:
             return np.zeros_like(advantages)
-        advantages = np.divide(advantages, stddev, where=stddev!=0)
+        advantages = np.divide(advantages, stddev, where=stddev != 0)
         advantages = np.where(stddev == 0, np.zeros_like(advantages), advantages)
         return advantages
 
@@ -233,9 +234,7 @@ class PolicyGradient(object):
         Returns:
             advantages: np.array of shape [batch size]
         """
-        advantages = self.baseline_network.calculate_advantage(
-            returns, observations
-        )
+        advantages = self.baseline_network.calculate_advantage(returns, observations)
         advantages = self.normalize_advantage(advantages)
 
         return advantages
@@ -301,7 +300,7 @@ class PolicyGradient(object):
             )
             averaged_total_rewards.append(avg_reward)
             self.logger.info(msg)
-            last_record+=1
+            last_record += 1
 
             if self.config.record and (last_record > self.config.record_freq):
                 self.logger.info("Recording...")
@@ -336,13 +335,12 @@ class PolicyGradient(object):
         """
         Recreate an env and record a video for one episode
         """
-        env = get_env()
+        env = get_env(self.config)
         env.seed(self.seed)
         env = gym.wrappers.Monitor(
             env, self.config.record_path, video_callable=lambda x: True, resume=True
         )
         self.evaluate(env, 1)
-
 
     def run(self):
         """

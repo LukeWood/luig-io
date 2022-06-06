@@ -1,12 +1,22 @@
 from tensorflow import keras
-from keras.layers import Dense, Conv2D,  MaxPool2D, Flatten, GlobalAveragePooling2D,  BatchNormalization, Layer, Add
+from keras.layers import (
+    Dense,
+    Conv2D,
+    MaxPool2D,
+    Flatten,
+    GlobalAveragePooling2D,
+    BatchNormalization,
+    Layer,
+    Add,
+)
 from keras.models import Sequential
 from keras.models import Model
 from tensorflow.keras import layers
 import luig_io
 import tensorflow as tf
 
-def build_network(input_shape, output_size,  name=None):
+
+def build_network(input_shape, output_size, name=None):
     """
     Args:
         output_size: int, the dimension of the output
