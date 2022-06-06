@@ -46,6 +46,29 @@ def train_step(self, data):
 When adding `tf.print(log_probs)` to the line below the variable assignment I noticed
 that some of the values trended towards `-infinity`.
 
-I managed to reason that this is due to the following circumstances:
+*Warning this is just my own reasoning!*
 
-- a negative reward being present in one of the `advantages`
+I reckon that this is due to the following circumstances:
+
+- a negative reward consistently in the `advantages` for one of the actions
+- the model begins to perform gradient descent on `-(log_probs * advantages)`, which causes that specific actions' probability to converge to 0
+- `lim(log(x)), x->0` is `-infinity`, so the model begins to over-optimize for this parameter, as this allows the negative loss to sky-rocket
+- this causes the parameters in every point in the model to eventually become NaN or infinity
+
+*Some solutions to this:*
+
+I reasoned that by limiting the `log_prob` term to an absolute minimum, such as `-50` the model will still be able to learn to produce an infintesmally small probability for these actions.  Keep in mind that:
+
+```
+np.log(0.0000000000000000000001)
+> -50
+```
+
+Yep, so the model will still be able to learn to give probabilities of `0.0000000000000000000001` to some actions even with this constraint.
+
+I implemented this with the following:
+
+```
+log_probs = self.action_distribution(observations).log_prob(actions)
+log_probs = tf.math.minimum(log_probs, -50)
+```
