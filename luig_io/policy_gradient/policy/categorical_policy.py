@@ -23,7 +23,8 @@ class CategoricalPolicy(BasePolicy):
         """
         predictions = self.network(observations)
         distribution = tfp.distributions.categorical.Categorical(
-            logits=predictions, allow_nan_stats=True
+            logits=predictions, allow_nan_stats=True,
+            validate_args=True
         )
         return distribution
 
