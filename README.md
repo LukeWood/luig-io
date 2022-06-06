@@ -26,14 +26,22 @@ If your environment is properly configured, you will begin to see log statements
 More information about each algorithm and it's corresponding setup
 can be found each directories' corresponding README.
 
+## Project Structure
+
+The project is structured into a [core library, `luig_io`](luig_io/) and algorithms.
+The `luig_io` package contains helpers and share utilities.
+These include simple models, such as a simple 3 layer: `SimpleCNN`, [gym wrappers](luig_io/wrappers) to implement `FrameStack`, `GrayScale`, and `Resize` operations.
+These are used across all environments.
+
+The [`luig_io`](luig_io/) package also contains the agents and their components.
+
+The entrypoints contain code to run the actual models.  This includes helpers, environment loading and wrapping to prepare for the algorithm, training code, sample collection code, and anything else needed to run an algorithm.
 
 ## Algorithms
 The repo contains the following algorithms
 
 - [REINFORCE (aka vanilla Policy Gradient)](policy_gradient/)
 - More in progress!
-
-## Project Structure
 
 ## Thanks for Checking out Luig-IO!
 

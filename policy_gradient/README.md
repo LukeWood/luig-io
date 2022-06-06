@@ -88,5 +88,5 @@ I implemented this with the following:
 
 ```
 log_probs = self.action_distribution(observations).log_prob(actions)
-log_probs = tf.math.minimum(log_probs, -50)
+log_probs = tf.math.maximum(log_probs, -50)
 ```

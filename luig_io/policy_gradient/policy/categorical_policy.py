@@ -39,7 +39,7 @@ class CategoricalPolicy(BasePolicy):
             log_probs = self.action_distribution(observations).log_prob(actions)
 
             if self.lowest_log is not None:
-                log_probs = tf.math.minimum(log_probs, self.lowest_log)
+                log_probs = tf.math.maximum(log_probs, self.lowest_log)
 
             loss = log_probs * advantages
             loss = -tf.math.reduce_mean(loss, axis=-1)
