@@ -1,5 +1,5 @@
-from gym_super_mario_bros.actions import COMPLEX_MOVEMENT
-
+from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+import tensorflow as tf
 class config_mario:
     def __init__(self, seed):
         self.env_name = "SuperMarioBrosRandomStagesEnv-v4"
@@ -17,12 +17,12 @@ class config_mario:
         self.record_freq = 3
         self.summary_freq = 1
 
-        self.action_dim = len(COMPLEX_MOVEMENT)
+        self.action_dim = len(SIMPLE_MOVEMENT)
 
         # model and training config
         self.num_batches = 100  # number of batches trained on
-        self.batch_size = 8000  # number of steps used to compute each policy update
-        self.max_ep_len = 8000  # maximum episode length
+        self.batch_size = 20000 if tf.test.is_gpu_available() else 200  # number of steps used to compute each policy update
+        self.max_ep_len = 20000 if tf.test.is_gpu_available() else 200   # maximum episode length
         self.learning_rate = 3e-2
         self.gamma = 0.9999  # the discount factor
         self.normalize_advantage = True
