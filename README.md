@@ -1,5 +1,7 @@
 ![luig-io](media/title.png)
 
+![mario](media/resized_mario.png)
+
 luig-io is a collection of deep reinforcement learning algorithms
 implemented using the Keras library.
 My implementations focus on readability, following Keras best practices, and producing
