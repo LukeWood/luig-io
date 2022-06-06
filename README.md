@@ -48,7 +48,7 @@ The repo contains the following algorithms
 
 - [REINFORCE (aka vanilla Policy Gradient)](policy_gradient/)
 - ❌ WorldModels (in progress)
-- Deep Q Learning
+- ❌ Deep Q Learning
 - ... and more!
 
 ## Contributing
