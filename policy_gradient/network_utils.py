@@ -17,11 +17,12 @@ import luig_io
 
 
 def build_network(input_shape, output_size, name=None):
-    """
+    """Builds a CNN using `luig_io.models.SimpleCNN`.
+
     Args:
-        output_size: int, the dimension of the output
-        n_layers: int, the number of hidden layers of the network
-        size: int, the size of each hidden layer
+        input_shape: the input shape for the model.
+        output_size: int, the dimension of the output.
+        name: the model name.
     Returns:
         A keras.Model representing the network.
     """
