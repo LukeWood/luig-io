@@ -17,6 +17,7 @@ setup(
         "isort",
         "flake8",
         "tensorflow",
+        "tensorflow-probability",
         "gym-super-mario-bros",
         "gym==0.22.0",
     ],
