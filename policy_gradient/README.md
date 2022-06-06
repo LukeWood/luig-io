@@ -1,4 +1,22 @@
 # REINFORCE (aka Vanilla Policy Gradient)
+[The REINFORCE algorithm](https://proceedings.neurips.cc/paper/1999/file/464d828b85b0bed98e80ade0a5c43b0f-Paper.pdf), or Vanilla Policy Gradient, is a Policy Gradient method (duh).
+
+The algorithm has poor sample efficiency, but comes with some nice mathematical guarantees regarding convergence.
+My policy gradient implementation consists of the following components:
+
+- [CategoricalPolicy with a custom `train_step()`](../luig_io/policy_gradient/policy/categorical_policy.py)
+- [Custom trainer](policy_gradient.py)
+- Video logging
+
+My implementation relies on `tensorflow_probability`, `Keras`, and `gym`.
+
+## Running the code
+First you'll need to setup the code by following the quickstart in the [root README](https://github.com/lukewood/luig-io).
+
+Then you can run:
+```bash
+python main.py
+```
 
 ## Challenges
 
