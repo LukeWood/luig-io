@@ -23,5 +23,6 @@ if __name__ == "__main__":
     # train model
     config = get_config(args.seed)
     env = get_env(config)
-    model = PolicyGradient(env, config, args.seed)
-    model.run()
+    with tf.distribute.MirroredStrategy().scope():
+        model = PolicyGradient(env, config, args.seed)
+        model.run()
