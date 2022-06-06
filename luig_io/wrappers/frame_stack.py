@@ -2,9 +2,8 @@
 from collections import deque
 from typing import Union
 
-import numpy as np
-
 import gym
+import numpy as np
 from gym.error import DependencyNotInstalled
 from gym.spaces import Box
 
@@ -18,7 +17,7 @@ class LazyFrames:
         This object should only be converted to numpy array just before forward pass.
     """
 
-    __slots__ = ("frame_shape", "dtype", "shape", "lz4_compress","axis", "_frames")
+    __slots__ = ("frame_shape", "dtype", "shape", "lz4_compress", "axis", "_frames")
 
     def __init__(self, frames: list, lz4_compress: bool = False, axis=0):
         """Lazyframe for a set of frames and if to apply lz4.
@@ -82,7 +81,8 @@ class LazyFrames:
         if isinstance(int_or_slice, int):
             return self._check_decompress(self._frames[int_or_slice])  # single frame
         return np.stack(
-            [self._check_decompress(f) for f in self._frames[int_or_slice]], axis=self.axis
+            [self._check_decompress(f) for f in self._frames[int_or_slice]],
+            axis=self.axis,
         )
 
     def __eq__(self, other):
@@ -114,7 +114,9 @@ class FrameStack(gym.ObservationWrapper):
           - After :meth:`reset` is called, the frame buffer will be filled with the initial observation. I.e. the observation returned by :meth:`reset` will consist of ``num_stack`-many identical frames,
     """
 
-    def __init__(self, env: gym.Env, num_stack: int, lz4_compress: bool = False, axis=0):
+    def __init__(
+        self, env: gym.Env, num_stack: int, lz4_compress: bool = False, axis=0
+    ):
         """Observation wrapper that stacks the observations in a rolling manner.
 
         Args:
@@ -129,9 +131,7 @@ class FrameStack(gym.ObservationWrapper):
         self.frames = deque(maxlen=num_stack)
 
         low = np.repeat(self.observation_space.low, num_stack, axis=self.axis)
-        high = np.repeat(
-            self.observation_space.high, num_stack, axis=self.axis
-        )
+        high = np.repeat(self.observation_space.high, num_stack, axis=self.axis)
         self.observation_space = Box(
             low=low, high=high, dtype=self.observation_space.dtype
         )
