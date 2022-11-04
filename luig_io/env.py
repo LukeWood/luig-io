@@ -13,7 +13,7 @@ actions_mapping = {
 }
 
 
-def get_env(env_name, actions="simple"):
+def get_env(env_name="SuperMarioBrosRandomStages-v3", actions="simple"):
     """get_env produces a pre-configured gym mario bros environment.
 
     Args:
