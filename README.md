@@ -24,7 +24,7 @@ python setup.py develop
 To verify that the installation worked, lets run the `policy_gradient` algorithm:
 
 ```bash
-python policy_gradient/main.py
+python algorithms/reinforce/main.py
 ```
 
 If your environment is properly configured, you will begin to see log statements.
@@ -46,8 +46,9 @@ The entrypoints contain code to run the actual models.  This includes helpers, e
 ## Algorithms
 The repo contains the following algorithms
 
-- [REINFORCE (aka vanilla Policy Gradient)](policy_gradient/)
-- ❌ WorldModels (in progress)
+- [REINFORCE (aka vanilla Policy Gradient)](algorithms/reinforce/)
+- ❌ PPO (in progress)
+- ❌ WorldModels
 - ❌ Deep Q Learning
 - ... and more!
 
