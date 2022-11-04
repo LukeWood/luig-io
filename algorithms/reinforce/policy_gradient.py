@@ -3,13 +3,15 @@ import os
 import gym
 import numpy as np
 import tensorflow as tf
-from general import export_plot, get_logger
+from general import export_plot
+from general import get_logger
 from helpers import get_env
 from network_utils import build_network
 from tensorflow import keras
 
 import luig_io
-from luig_io.policy_gradient import BaselineNetwork, CategoricalPolicy
+from luig_io.policy_gradient import BaselineNetwork
+from luig_io.policy_gradient import CategoricalPolicy
 
 
 class PolicyGradient(object):

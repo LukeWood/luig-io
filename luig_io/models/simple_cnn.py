@@ -1,5 +1,6 @@
 import tensorflow as tf
-from tensorflow.keras import layers, regularizers
+from tensorflow.keras import layers
+from tensorflow.keras import regularizers
 
 
 def SimpleCNN(**kwargs):

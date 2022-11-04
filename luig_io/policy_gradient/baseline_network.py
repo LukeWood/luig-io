@@ -1,6 +1,5 @@
 import numpy as np
 import tensorflow as tf
-from network_utils import build_network
 from tensorflow import keras
 
 

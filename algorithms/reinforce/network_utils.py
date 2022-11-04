@@ -1,17 +1,17 @@
 import tensorflow as tf
-from keras.layers import (
-    Add,
-    BatchNormalization,
-    Conv2D,
-    Dense,
-    Flatten,
-    GlobalAveragePooling2D,
-    Layer,
-    MaxPool2D,
-)
-from keras.models import Model, Sequential
+from keras.layers import Add
+from keras.layers import BatchNormalization
+from keras.layers import Conv2D
+from keras.layers import Dense
+from keras.layers import Flatten
+from keras.layers import GlobalAveragePooling2D
+from keras.layers import Layer
+from keras.layers import MaxPool2D
+from keras.models import Model
+from keras.models import Sequential
 from tensorflow import keras
 from tensorflow.keras import layers
+
 import luig_io
 
 

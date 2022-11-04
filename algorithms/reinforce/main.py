@@ -9,9 +9,9 @@ import numpy as np
 import tensorflow as tf
 from config import get_config
 from helpers import get_env
-import luig_io
-
 from policy_gradient import PolicyGradient
+
+import luig_io
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=1)
