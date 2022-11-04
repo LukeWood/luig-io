@@ -12,7 +12,6 @@ from keras.layers import (
 from keras.models import Model, Sequential
 from tensorflow import keras
 from tensorflow.keras import layers
-
 import luig_io
 
 
