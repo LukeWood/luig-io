@@ -34,7 +34,7 @@ can be found each directories' corresponding README.
 
 ## Project Structure
 
-The project is structured into a [core library, `luig_io`](luig_io/) and algorithms.
+The project is structured into a [core library, `luig_io`](luig_io/), and individual algorithms.
 The `luig_io` package contains helpers and share utilities.
 These include simple models, such as a simple 3 layer: `SimpleCNN`, [gym wrappers](luig_io/wrappers) to implement `FrameStack`, `GrayScale`, and `Resize` operations.
 These are used across all environments.
