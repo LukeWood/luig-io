@@ -10,13 +10,13 @@ class ResnetBlock(keras.layers.Layer):
         super().__init__(**kwargs)
         self.output_dim = output_dim
         self.norm1 = GroupNormalization(epsilon=1e-5)
-        self.conv1 = keras.layers.Conv2D(output_dim, 3, padding=1)
+        self.conv1 = keras.layers.Conv2D(output_dim, 3, padding='same')
         self.norm2 = GroupNormalization(epsilon=1e-5)
-        self.conv2 = keras.layers.PaddedConv2D(output_dim, 3, padding=1)
+        self.conv2 = keras.layers.PaddedConv2D(output_dim, 3, padding='same')
 
     def build(self, input_shape):
         if input_shape[-1] != self.output_dim:
-            self.residual_projection = keras.layers.Conv2D(self.output_dim, 1)
+            self.residual_projection = keras.layers.Conv2D(self.output_dim, 1, padding='same')
         else:
             self.residual_projection = lambda x: x
 
